@@ -1,12 +1,8 @@
-package com.example.soe_than.splashy.ui.Vo
+package com.example.soe_than.splashy.ui.data.Vo
 
 import com.google.gson.annotations.SerializedName
 
-data class Photo(
-        @SerializedName("id")
-        val id: String,
-        @SerializedName("created_at")
-        val created_at: String,
+data class CoverPhoto(
         @SerializedName("width")
         val width: Int,
         @SerializedName("height")
@@ -15,9 +11,14 @@ data class Photo(
         val color: String,
         @SerializedName("likes")
         val likes: Int,
+        @SerializedName("liked_by_user")
+        val liked_by_user: Boolean,
         @SerializedName("user")
         val user: User,
-        @SerializedName("links")
-        val links: Links,
         @SerializedName("urls")
-        val urls: Urls)
+        val urls: Urls,
+        @SerializedName("links")
+        val links: Links)
+
+
+

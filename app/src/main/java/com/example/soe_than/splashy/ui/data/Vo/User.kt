@@ -1,6 +1,5 @@
-package com.example.soe_than.splashy.ui.Vo
+package com.example.soe_than.splashy.ui.data.Vo
 
-import android.telephony.mbms.StreamingServiceInfo
 import com.google.gson.annotations.SerializedName
 
 class User(

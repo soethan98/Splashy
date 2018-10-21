@@ -1,4 +1,4 @@
-package com.example.soe_than.splashy.ui.Vo
+package com.example.soe_than.splashy.ui.data.Vo
 
 import com.google.gson.annotations.SerializedName
 
