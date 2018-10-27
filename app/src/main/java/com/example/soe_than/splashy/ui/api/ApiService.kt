@@ -17,7 +17,7 @@ interface ApiService {
 
     @GET("photos")
     fun getPhotos(@Query("client_id") apiKey: String,
-                  @Query("page") page: Int): Observable<List<Photo>>
+                  @Query("page") page: Int,@Query("per_page") per_page:Int): Observable<List<Photo>>
 
     @GET("photos/curated")
     fun getCuratedPhotos(@Query("client_id") apiKey: String,

@@ -1,4 +1,4 @@
-package com.example.soe_than.splashy.ui
+package com.example.soe_than.splashy.ui.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,23 +6,20 @@ import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import com.example.soe_than.splashy.R
-import com.example.soe_than.splashy.ui.fragment.CollectionsFragment
-import com.example.soe_than.splashy.ui.fragment.FeaturedFragment
-import com.example.soe_than.splashy.ui.fragment.NewFragment
-import com.example.soe_than.splashy.ui.utils.ConstantsUtils
+import com.example.soe_than.splashy.ui.ui.CollectionPhotos.CollectionsFragment
+import com.example.soe_than.splashy.ui.ui.FeaturedPhotos.FeaturedFragment
+import com.example.soe_than.splashy.ui.ui.NewPhotos.NewFragment
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils.CURRENT_TAG
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils.TAG_COLLECTON
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils.TAG_FEATURED
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils.TAG_NEW
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils.navItemIndex
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 

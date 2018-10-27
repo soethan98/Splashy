@@ -1,11 +1,13 @@
-package com.example.soe_than.splashy.ui.pagination
+package com.example.soe_than.splashy.ui.data.datasource.factory
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource
 import com.example.soe_than.splashy.ui.data.Vo.Photo
+import com.example.soe_than.splashy.ui.data.datasource.PhotoDataSource
+import io.reactivex.disposables.CompositeDisposable
 
-class PhotoDataSourceFactory: DataSource.Factory<Int, Photo>() {
+class PhotoDataSourceFactory(val compositeDisposable: CompositeDisposable): DataSource.Factory<Int, Photo>() {
 
     lateinit var photoDataSource: PhotoDataSource
     var mutableLiveData:MutableLiveData<PhotoDataSource>
@@ -16,7 +18,7 @@ class PhotoDataSourceFactory: DataSource.Factory<Int, Photo>() {
 
     override fun create(): DataSource<Int, Photo> {
 
-        photoDataSource = PhotoDataSource()
+        photoDataSource = PhotoDataSource(compositeDisposable)
         mutableLiveData.postValue(photoDataSource)
         return photoDataSource
     }

@@ -1,4 +1,4 @@
-package com.example.soe_than.splashy.ui.fragment
+package com.example.soe_than.splashy.ui.ui.CollectionPhotos
 
 
 import android.os.Bundle
@@ -18,12 +18,12 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class FeaturedFragment : Fragment() {
+class CollectionsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_featured, container, false)
+        return inflater.inflate(R.layout.fragment_collections, container, false)
     }
 
 
