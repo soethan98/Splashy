@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <android.support.v7.widget.Toolbar
-            app:titleTextColor="@color/colorAccent"
+            app:titleTextColor="@android:color/black"
             android:id="@+id/tbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

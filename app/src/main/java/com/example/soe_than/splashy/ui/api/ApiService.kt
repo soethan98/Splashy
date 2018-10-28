@@ -25,7 +25,7 @@ interface ApiService {
 
     @GET("collections")
     fun getAllCollections(@Query("client_id") apiKey: String,
-                          @Query("page") page: Int): Observable<List<Collection>>
+                          @Query("page") page: Int,@Query("per_page") per_page:Int): Observable<List<Collection>>
 
 
     companion object Factory {

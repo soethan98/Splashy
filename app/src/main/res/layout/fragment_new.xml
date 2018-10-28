@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data class="NewFragmentBinding" />
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/photoProgress"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/favouriteRecyclerview"
@@ -19,7 +20,6 @@
                 android:layout_height="match_parent" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 </layout>
