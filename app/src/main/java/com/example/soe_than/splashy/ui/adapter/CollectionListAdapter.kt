@@ -1,6 +1,7 @@
 package com.example.soe_than.splashy.ui.adapter
 
 import android.arch.paging.PagedListAdapter
+import android.content.Context
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,12 +11,14 @@ import com.example.soe_than.splashy.databinding.NetworkItemBinding
 import com.example.soe_than.splashy.databinding.NewPhotoItemBinding
 import com.example.soe_than.splashy.ui.data.Vo.Collection
 import com.example.soe_than.splashy.ui.data.Vo.Photo
+import com.example.soe_than.splashy.ui.delegate.CollectionDelegate
+import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
 import com.example.soe_than.splashy.ui.utils.NetworkState
 import com.example.soe_than.splashy.ui.viewholder.CollectionItemViewHolder
 import com.example.soe_than.splashy.ui.viewholder.NetworkItemViewHolder
 import com.example.soe_than.splashy.ui.viewholder.PhotoItemViewHolder
 
-class CollectionListAdapter: PagedListAdapter<Collection, RecyclerView.ViewHolder>(CollectionDiffCallback) {
+class CollectionListAdapter(val context: Context?, val collectionDelegate: CollectionDelegate): PagedListAdapter<Collection, RecyclerView.ViewHolder>(CollectionDiffCallback) {
 
 
     val TYPE_PROGRESS = 0
@@ -31,7 +34,7 @@ class CollectionListAdapter: PagedListAdapter<Collection, RecyclerView.ViewHolde
             return viewHolder
         }else {
             var itemBinding = CollectionItemBinding.inflate(layoutInflater,parent,false)
-            var viewHolder =  CollectionItemViewHolder(itemBinding.root,itemBinding)
+            var viewHolder =  CollectionItemViewHolder(itemBinding.root,itemBinding,collectionDelegate)
             return viewHolder
         }
 

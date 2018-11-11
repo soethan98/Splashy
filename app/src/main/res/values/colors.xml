@@ -3,4 +3,8 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">@android:color/transparent</color>
     <color name="colorAccent">#ff3d00</color>
+    <color name="v23statusBar">#ffffff</color>
+
+    <color name="collectionFloat">#F5F5F5</color>
+
 </resources>

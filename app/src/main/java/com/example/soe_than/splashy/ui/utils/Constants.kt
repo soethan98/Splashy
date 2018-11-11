@@ -1,5 +1,8 @@
 package com.example.soe_than.splashy.ui.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
+
 object ConstantsUtils{
     var navItemIndex = 0
     val TAG_NEW = "new"
@@ -11,4 +14,17 @@ object ConstantsUtils{
 
     val LOADING = "Loading"
     val LOADED = "Loaded"
+
+
+    fun checkConnectivity(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

@@ -12,18 +12,11 @@ import io.reactivex.disposables.CompositeDisposable
 
 class CollectionDataSource(val compositeDisposable: CompositeDisposable) : PageKeyedDataSource<Int, Collection>() {
 
-    var apiService: ApiService
+    private val apiService: ApiService by lazy { ApiService.create()}
 
     val networkState = MutableLiveData<NetworkState>()
 
     val initialLoad = MutableLiveData<NetworkState>()
-
-    init {
-
-        apiService = ApiService.create()
-
-
-    }
 
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Collection>) {

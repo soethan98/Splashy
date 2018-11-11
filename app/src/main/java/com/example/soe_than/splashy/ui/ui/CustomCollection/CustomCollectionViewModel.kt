@@ -1,4 +1,4 @@
-package com.example.soe_than.splashy.ui.ui.FeaturedPhotos
+package com.example.soe_than.splashy.ui.ui.CustomCollection
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
@@ -6,35 +6,35 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.example.soe_than.splashy.ui.data.Vo.Photo
+import com.example.soe_than.splashy.ui.data.datasource.collectionphoto.CollectionPhotoDataSource
+import com.example.soe_than.splashy.ui.data.datasource.collectionphoto.CollectionPhotoDataSourceFactory
 import com.example.soe_than.splashy.ui.data.datasource.feature.FeatureDataSource
 import com.example.soe_than.splashy.ui.data.datasource.feature.FeatureDataSourceFactory
-import com.example.soe_than.splashy.ui.data.datasource.newsource.PhotoDataSource
-import com.example.soe_than.splashy.ui.data.datasource.newsource.PhotoDataSourceFactory
 import com.example.soe_than.splashy.ui.utils.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
-class FeaturedViewModel: ViewModel() {
+class CustomCollectionViewModel(id:String): ViewModel() {
 
     var photoList: LiveData<PagedList<Photo>>
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val pageSize = 20
+    private val pageSize = 10
 
-    private val sourceFactory: FeatureDataSourceFactory
+    private val sourceFactory: CollectionPhotoDataSourceFactory
 
     init {
-        sourceFactory = FeatureDataSourceFactory(compositeDisposable)
+        sourceFactory = CollectionPhotoDataSourceFactory(compositeDisposable,id)
         val config = PagedList.Config.Builder()
-                .setPageSize(pageSize)
-                .setInitialLoadSizeHint(pageSize)
+                .setPageSize(20)
+                .setInitialLoadSizeHint(10)
                 .setEnablePlaceholders(false)
                 .build()
         photoList = LivePagedListBuilder<Int, Photo>(sourceFactory, config).build()
 
     }
 
-    fun getNetworkState(): LiveData<NetworkState> = Transformations.switchMap<FeatureDataSource, NetworkState>(
+    fun getNetworkState(): LiveData<NetworkState> = Transformations.switchMap<CollectionPhotoDataSource, NetworkState>(
             sourceFactory.mutableLiveData, { it.networkState })
 
 
@@ -46,5 +46,4 @@ class FeaturedViewModel: ViewModel() {
         super.onCleared()
         compositeDisposable.clear()
     }
-
 }

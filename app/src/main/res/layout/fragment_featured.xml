@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ui.FeaturedPhotos.FeaturedFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data class="FeaturedFragmentBinding" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/nav_featured" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/feature_layoutRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            >
 
-</FrameLayout>
+            <ImageView
+                android:id="@+id/feature_NoSignal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/wifi_128" />
+
+            <TextView
+                android:id="@+id/feature_internetStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No internet connections found"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_gravity="center_horizontal"/>
+
+
+
+            <Button
+                android:layout_marginTop="20sp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="RETRY"
+                android:id="@+id/feature_btn_retry"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/retrybtn_background"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/featuredProgress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/featuredRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
+
+</layout>

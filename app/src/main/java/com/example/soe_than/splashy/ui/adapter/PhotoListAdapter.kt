@@ -19,7 +19,7 @@ import com.example.soe_than.splashy.ui.viewholder.PhotoItemViewHolder
 
 
 
-class NewPhotoListAdapter: PagedListAdapter<Photo, RecyclerView.ViewHolder>(PhotoDiffCallback) {
+class PhotoListAdapter: PagedListAdapter<Photo, RecyclerView.ViewHolder>(PhotoDiffCallback) {
 
 
     val TYPE_PROGRESS = 0

@@ -4,22 +4,63 @@
 
     <data class="NewFragmentBinding" />
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layoutRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            >
+
+            <ImageView
+                android:id="@+id/noSignal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/wifi_128" />
+
+            <TextView
+                android:id="@+id/internetStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No internet connections found"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_gravity="center_horizontal"/>
+
+
+
+            <Button
+                android:layout_marginTop="20sp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="RETRY"
+                android:id="@+id/btn_retry"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/retrybtn_background"/>
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/photoProgress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/favouriteRecyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ProgressBar
-                android:id="@+id/photoProgress"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/favouriteRecyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            android:layout_height="match_parent" />
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 </layout>

@@ -21,6 +21,9 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.app_bar_main.*
+import android.os.Build
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +42,18 @@ class MainActivity : AppCompatActivity() {
 
          toolbar = findViewById(R.id.tbar)
         setSupportActionBar(toolbar)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            val decor = window.decorView
+//            var shouldChangeStatusBarTintToDark = true
+//            if (shouldChangeStatusBarTintToDark) {
+//                decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//            } else {
+//                // We want to change tint color to white again.
+//                // You can also record the flags in advance so that you can turn UI back completely if
+//                // you have set other flags before, such as translucent or full screen.
+//                decor.systemUiVisibility = 0
+//            }
+//        }
 
 
 
