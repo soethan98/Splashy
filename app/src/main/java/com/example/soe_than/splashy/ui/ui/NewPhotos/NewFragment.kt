@@ -3,6 +3,7 @@ package com.example.soe_than.splashy.ui.ui.NewPhotos
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -15,12 +16,21 @@ import android.view.ViewGroup
 import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.NewFragmentBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
+import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
 import com.example.soe_than.splashy.ui.ui.CollectionPhotos.CollectionsViewModel
+import com.example.soe_than.splashy.ui.ui.CustomCollection.CollectionPhoto
+import com.example.soe_than.splashy.ui.ui.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_new.view.*
 
 
-class NewFragment : Fragment() {
+class NewFragment : Fragment(), PhotoDelegate {
+    override fun onTap(photoUrl: String) {
+        var intent = Intent(activity, PhotoPreview::class.java)
+        intent.putExtra("URL", photoUrl)
+
+        startActivity(intent)
+    }
 
     lateinit var binding: NewFragmentBinding
     lateinit var newAdapter: PhotoListAdapter
@@ -76,7 +86,7 @@ class NewFragment : Fragment() {
     private fun setUpRecyclerView(view: View) {
         binding.favouriteRecyclerview.layoutManager = StaggeredGridLayoutManager(2, 1)
 
-        newAdapter = PhotoListAdapter()
+        newAdapter = PhotoListAdapter(activity!!, this)
 
         viewModel.getListLiveData().observe(activity!!, Observer { photos ->
             photos!!.let {

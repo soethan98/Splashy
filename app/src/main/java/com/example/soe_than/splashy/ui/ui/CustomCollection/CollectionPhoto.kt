@@ -2,6 +2,7 @@ package com.example.soe_than.splashy.ui.ui.CustomCollection
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,9 +13,17 @@ import android.view.View
 import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.ActivityCollectionBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
+import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
+import com.example.soe_than.splashy.ui.ui.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 
-class CollectionPhoto : AppCompatActivity() {
+class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
+    override fun onTap(photoUrl: String) {
+        var intent = Intent(this, PhotoPreview::class.java)
+        intent.putExtra("URL", photoUrl)
+
+        startActivity(intent)
+    }
 
     var collectionId: String? = null;
     var collectionTitle: String? = null
@@ -59,7 +68,7 @@ class CollectionPhoto : AppCompatActivity() {
     private fun setUpRecyclerView() {
         binding.cRecyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        newAdapter = PhotoListAdapter()
+        newAdapter = PhotoListAdapter(this,this)
 
         viewModel.getListLiveData().observe(this, Observer { photos ->
             photos!!.let {

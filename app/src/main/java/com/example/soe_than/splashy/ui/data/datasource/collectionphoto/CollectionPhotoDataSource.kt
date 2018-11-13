@@ -48,7 +48,7 @@ class CollectionPhotoDataSource(val compositeDisposable: CompositeDisposable,val
 
         compositeDisposable.add(apiService.getaCollectionPhotos(id,ConstantsUtils.CLIENT_ID, params.key, params.requestedLoadSize).subscribe({ photos: List<Photo>? ->
             networkState.postValue(NetworkState.LOADED)
-            val nextKey = (if (params.key === 4) null else params.key + 1)
+            val nextKey = (if (params.key === 5) null else params.key + 1)
             callback.onResult(photos!!, nextKey)
         }, { t: Throwable ->
             networkState.postValue(NetworkState.error(

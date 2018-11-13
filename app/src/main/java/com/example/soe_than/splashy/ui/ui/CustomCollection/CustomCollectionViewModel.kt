@@ -19,14 +19,14 @@ class CustomCollectionViewModel(id:String): ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val pageSize = 10
+    private val pageSize = 20
 
     private val sourceFactory: CollectionPhotoDataSourceFactory
 
     init {
         sourceFactory = CollectionPhotoDataSourceFactory(compositeDisposable,id)
         val config = PagedList.Config.Builder()
-                .setPageSize(20)
+                .setPageSize(pageSize)
                 .setInitialLoadSizeHint(10)
                 .setEnablePlaceholders(false)
                 .build()
