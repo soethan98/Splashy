@@ -55,13 +55,17 @@ class PhotoListAdapter(val context: Context?, val photoDelegate: PhotoDelegate):
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (hasExtraRow() && position == getItemCount() - 1) {
-            return TYPE_PROGRESS;
-        } else {
-            return TYPE_ITEM;
-        }
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        if (hasExtraRow() && position == getItemCount() - 1) {
+//            return TYPE_PROGRESS;
+//        } else {
+//            return TYPE_ITEM;
+//        }
+//    }dark
+    override fun getItemViewType(position: Int):Int = if(hasExtraRow() && position ==  getItemCount() - 1) TYPE_PROGRESS else TYPE_ITEM
+
+
+
 
     fun setNetworkState(newNetworkState: NetworkState) {
         var previousState = this.networkState

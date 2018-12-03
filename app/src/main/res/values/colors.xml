@@ -7,4 +7,6 @@
 
     <color name="collectionFloat">#F5F5F5</color>
 
+    <color name="black_overlay">#66000000</color>
+
 </resources>

@@ -22,16 +22,16 @@ import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.os.Build
-
-
+import android.util.Log
+import android.support.v4.view.MenuItemCompat
+import android.widget.CompoundButton
 
 
 class MainActivity : AppCompatActivity() {
 
 
-
-    lateinit var activityTiles :Array<String>
-    lateinit var toolbar:Toolbar
+    lateinit var activityTiles: Array<String>
+    lateinit var toolbar: Toolbar
 
     lateinit var mHandler: Handler
 
@@ -40,30 +40,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         toolbar = findViewById(R.id.tbar)
+        toolbar = findViewById(R.id.tbar)
         setSupportActionBar(toolbar)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            val decor = window.decorView
-//            var shouldChangeStatusBarTintToDark = true
-//            if (shouldChangeStatusBarTintToDark) {
-//                decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//            } else {
-//                // We want to change tint color to white again.
-//                // You can also record the flags in advance so that you can turn UI back completely if
-//                // you have set other flags before, such as translucent or full screen.
-//                decor.systemUiVisibility = 0
-//            }
-//        }
-
-
-
         mHandler = Handler()
         activityTiles = resources.getStringArray(R.array.nav_item_activity_titles)
 
 
-
 //        // initializing navigation menu
         setUpNavigationView();
+        onThemeSwitchChecked()
 
         savedInstanceState.let {
             navItemIndex = 0;
@@ -140,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 
                 //Check to see which item was being clicked and perform appropriate action
                 when (menuItem.getItemId()) {
-                //Replacing the main content with ContentFragment Which is our Inbox View;
+                    //Replacing the main content with ContentFragment Which is our Inbox View;
                     R.id.nav_new -> {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_NEW;
@@ -152,6 +137,15 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_collection -> {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_COLLECTON
+                    }
+                    R.id.nav_dark_theme -> {
+                        var switchItem = nav_view.menu.findItem(R.id.nav_dark_theme)
+                        val switchView = MenuItemCompat.getActionView(switchItem) as CompoundButton
+//                        switchView.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+//                            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+//                                Log.i("Hi","Hello")
+//                            }
+//                        })
                     }
                     else -> navItemIndex = 0
 
@@ -176,13 +170,13 @@ class MainActivity : AppCompatActivity() {
                 tbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
-        ){
-            override fun onDrawerClosed(view:View){
+        ) {
+            override fun onDrawerClosed(view: View) {
                 super.onDrawerClosed(view)
                 //toast("Drawer closed")
             }
 
-            override fun onDrawerOpened(drawerView: View){
+            override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
                 //toast("Drawer opened")
             }
@@ -195,6 +189,16 @@ class MainActivity : AppCompatActivity() {
         drawerToggle.syncState();
 
 
+    }
+
+    fun onThemeSwitchChecked() {
+        var switchItem = nav_view.menu.findItem(R.id.nav_dark_theme)
+        val switchView = MenuItemCompat.getActionView(switchItem) as CompoundButton
+        switchView.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -216,8 +220,6 @@ class MainActivity : AppCompatActivity() {
         }
         super.onBackPressed()
     }
-
-
 
 
 }

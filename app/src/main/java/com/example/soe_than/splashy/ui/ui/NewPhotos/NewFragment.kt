@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,6 @@ import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.NewFragmentBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
-import com.example.soe_than.splashy.ui.ui.CollectionPhotos.CollectionsViewModel
-import com.example.soe_than.splashy.ui.ui.CustomCollection.CollectionPhoto
 import com.example.soe_than.splashy.ui.ui.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_new.view.*
@@ -28,6 +25,8 @@ class NewFragment : Fragment(), PhotoDelegate {
     override fun onTap(photoUrl: String) {
         var intent = Intent(activity, PhotoPreview::class.java)
         intent.putExtra("URL", photoUrl)
+//        var intent = Intent(activity,FullscreenActivity::class.java)
+
 
         startActivity(intent)
     }
@@ -69,9 +68,6 @@ class NewFragment : Fragment(), PhotoDelegate {
         binding.layoutRetry.visibility = View.GONE
         binding.favouriteRecyclerview.visibility = View.VISIBLE
         binding.photoProgress.visibility = View.VISIBLE
-
-
-
         setUpRecyclerView(view)
 
     }

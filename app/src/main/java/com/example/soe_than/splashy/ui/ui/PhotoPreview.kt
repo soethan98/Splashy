@@ -17,6 +17,9 @@ import com.example.soe_than.splashy.databinding.ActivityPreviewBinding
 import com.github.chrisbanes.photoview.PhotoViewAttacher
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.target.Target
+import android.support.v4.content.ContextCompat
+
+
 
 
 class PhotoPreview : AppCompatActivity() {
@@ -32,6 +35,13 @@ class PhotoPreview : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_preview)
 
         photoUrl = intent.getStringExtra("URL")
+        setSupportActionBar(binding.previewBar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true);
+
+
+
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true);
+//        supportActionBar!!.setBackgroundDrawable()
 
 
 //        window.decorView.systemUiVisibility = (
@@ -50,11 +60,15 @@ class PhotoPreview : AppCompatActivity() {
                 .load(photoUrl)
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        binding.previewProgress.visibility = View.GONE
+                        binding.btnInfo.visibility = View.VISIBLE
+
                         return false
                     }
 
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         binding.previewProgress.visibility = View.GONE
+
                         return false
                     }
                 }
