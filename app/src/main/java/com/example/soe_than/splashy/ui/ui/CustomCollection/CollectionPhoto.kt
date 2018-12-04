@@ -6,6 +6,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.MenuItem
@@ -19,10 +20,12 @@ import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 
 class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
     override fun onTap(photoUrl: String) {
-        var intent = Intent(this, PhotoPreview::class.java)
-        intent.putExtra("URL", photoUrl)
+//        var intent = Intent(this, PhotoPreview::class.java)
+//        intent.putExtra("URL", photoUrl)
+//
+//        startActivity(intent)
 
-        startActivity(intent)
+        restartActivity()
     }
 
     var collectionId: String? = null;
@@ -37,6 +40,8 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_collection_photo)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collection_photo)
+        Log.i("HIThe",AppCompatDelegate.getDefaultNightMode().toString());
+
 
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -113,4 +118,12 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    fun restartActivity(){
+
+        val mIntent = intent
+        finish()
+        startActivity(mIntent)
+    }
+
 }

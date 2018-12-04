@@ -1,28 +1,52 @@
 package com.example.soe_than.splashy.ui
 
 import android.app.Application
+import android.arch.lifecycle.ViewModelProviders
+import android.content.SharedPreferences
 import android.os.Build
+import android.preference.PreferenceManager
 import android.view.View
+import com.example.soe_than.splashy.ui.data.PreferencesUtils
+import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModel
 
-class App :Application() {
+
+class App : Application() {
+
+    val TAG = "App"
+    private var isNightModeEnabled = false
+
+
+    companion object {
+        var _instance: App? = null
+
+        fun getInstance(): App? {
+            if (_instance == null) {
+                _instance = App()
+            }
+
+            return _instance
+        }
+    }
+
+
+    fun isNightModeEnabled(): Boolean {
+        return isNightModeEnabled
+    }
+
+    fun setIsNightModeEnabled(isNightModeEnabled: Boolean) {
+//        this.isNightModeEnabled = isNightModeEnabled
+//         mPrefs.edit().putBoolean("NIGHT_MODE",isNightModeEnabled)
+         PreferencesUtils.putBoolean(this,"NIGHT_MODE",isNightModeEnabled)
+    }
 
 
     override fun onCreate() {
         super.onCreate()
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            val decor = window.decorView
-//            var shouldChangeStatusBarTintToDark = true
-//            if (shouldChangeStatusBarTintToDark) {
-//                decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//            } else {
-//                // We want to change tint color to white again.
-//                // You can also record the flags in advance so that you can turn UI back completely if
-//                // you have set other flags before, such as translucent or full screen.
-//                decor.systemUiVisibility = 0
-//            }
-//        }
-//
-//    }
+
+//        mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+//        this.isNightModeEnabled = mPrefs.getBoolean("NIGHT_MODE",false)
+//        this.isNightModeEnabled = PreferencesUtils.getBoolean(this,"NIGHT_MODE",false)
+
 
     }
 }

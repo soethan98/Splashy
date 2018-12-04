@@ -5,6 +5,7 @@
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/colorPrimaryDark"
         android:id="@+id/activity_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +25,7 @@
 
             <android.support.v7.widget.Toolbar
                 app:theme="@style/ToolbarColoredBackArrow"
+                app:titleTextColor="@color/primaryColorText"
 
                 android:id="@+id/preview_bar"
                 android:layout_width="match_parent"
@@ -45,7 +47,7 @@
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="@color/primaryColorText"
             android:elevation="5dp"
             android:text="Show Dialog"
             android:textColor="@color/colorPrimary" />

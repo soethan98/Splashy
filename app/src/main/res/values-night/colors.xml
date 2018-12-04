@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="v23statusBar">#212121</color>
+    <color name="collectionFloat">#F5F5F5</color>
+    <color name="black_overlay">#ffffff</color>
+
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#1a1a1a</color>
+    <color name="colorAccent">#ff3d00</color>
+    <color name="primaryColorText">#ffffff</color>
+    <color name="secondaryColorText">#96ffffff</color>
+</resources>

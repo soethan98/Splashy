@@ -1,5 +1,6 @@
 package com.example.soe_than.splashy.ui.ui
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -24,7 +25,13 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import android.os.Build
 import android.util.Log
 import android.support.v4.view.MenuItemCompat
+import android.support.v7.app.AppCompatDelegate
 import android.widget.CompoundButton
+import com.example.soe_than.splashy.ui.App
+import android.content.Intent
+import android.databinding.adapters.CompoundButtonBindingAdapter.setChecked
+import android.support.v7.widget.SwitchCompat
+import com.example.soe_than.splashy.ui.data.PreferencesUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,26 +41,39 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
 
     lateinit var mHandler: Handler
+    var themePref:Boolean = false
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Log.i("onCreate","${PreferencesUtils.getBoolean(this,"NIGHT_MODE",false)}")
+
+//          themePref = App.getInstance()!!.isNightModeEnabled()
+        themePref = PreferencesUtils.getBoolean(this,"NIGHT_MODE",false)
+
+        if (themePref == true){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        }
         toolbar = findViewById(R.id.tbar)
         setSupportActionBar(toolbar)
         mHandler = Handler()
         activityTiles = resources.getStringArray(R.array.nav_item_activity_titles)
 
-
-//        // initializing navigation menu
-        setUpNavigationView();
         onThemeSwitchChecked()
+
+        setUpNavigationView();
 
         savedInstanceState.let {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_NEW;
-            loadHomeFragment();
+            CURRENT_TAG = TAG_NEW
+            loadHomeFragment()
         }
 
     }
@@ -138,15 +158,7 @@ class MainActivity : AppCompatActivity() {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_COLLECTON
                     }
-                    R.id.nav_dark_theme -> {
-                        var switchItem = nav_view.menu.findItem(R.id.nav_dark_theme)
-                        val switchView = MenuItemCompat.getActionView(switchItem) as CompoundButton
-//                        switchView.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-//                            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-//                                Log.i("Hi","Hello")
-//                            }
-//                        })
-                    }
+
                     else -> navItemIndex = 0
 
                 }
@@ -192,11 +204,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onThemeSwitchChecked() {
+
         var switchItem = nav_view.menu.findItem(R.id.nav_dark_theme)
         val switchView = MenuItemCompat.getActionView(switchItem) as CompoundButton
+        if(themePref == true){
+            switchView.isChecked =true
+        }else{
+         switchView.isChecked = false
+        }
+
         switchView.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-
+              changeTheme(isChecked)
             }
         })
     }
@@ -221,6 +240,32 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    fun changeTheme(checked:Boolean){
+        when(checked){
+            true -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                App.getInstance()!!.setIsNightModeEnabled(checked)
+                PreferencesUtils.putBoolean(this,"NIGHT_MODE",checked)
+
+            }
+            false -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                App.getInstance()!!.setIsNightModeEnabled(checked)
+                PreferencesUtils.putBoolean(this,"NIGHT_MODE",checked)
+
+            }
+
+        }
+        restartActivity()
+
+    }
+
+    fun restartActivity(){
+
+        val mIntent = intent
+        finish()
+        startActivity(mIntent)
+    }
 
 }
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="v23statusBar">#ffffff</color>
+    <color name="collectionFloat">#F5F5F5</color>
+    <color name="black_overlay">#66000000</color>
+
+    <color name="primaryColorText">@android:color/black</color>
+    <color name="secondaryColorText">@android:color/black</color>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">@android:color/transparent</color>
     <color name="colorAccent">#ff3d00</color>
-    <color name="v23statusBar">#ffffff</color>
-
-    <color name="collectionFloat">#F5F5F5</color>
-
-    <color name="black_overlay">#66000000</color>
-
 </resources>
