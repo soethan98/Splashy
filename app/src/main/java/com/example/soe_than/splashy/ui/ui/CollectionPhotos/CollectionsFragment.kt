@@ -19,6 +19,8 @@ import com.example.soe_than.splashy.ui.data.Vo.Collection
 import com.example.soe_than.splashy.ui.delegate.CollectionDelegate
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
 import com.example.soe_than.splashy.ui.ui.CustomCollection.CollectionPhoto
+import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModel
+import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModelFactory
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_collections.view.*
 
@@ -26,7 +28,8 @@ class CollectionsFragment : Fragment(), CollectionDelegate {
 
 
 
-    private val viewModel: CollectionsViewModel by lazy { ViewModelProviders.of(this).get(CollectionsViewModel::class.java) }
+     lateinit var viewModel: CollectionsViewModel
+    lateinit var viewModelFactory:CollectionsViewModelFactory
     lateinit var binding: CollectionFragmentBinding
     lateinit var collectionListAdapter: CollectionListAdapter
 
@@ -37,7 +40,9 @@ class CollectionsFragment : Fragment(), CollectionDelegate {
         binding = DataBindingUtil.inflate<CollectionFragmentBinding>(inflater, R.layout.fragment_collections, container, false);
 
         val view = binding.getRoot()
-        setUpRecyclerView(view)
+        viewModelFactory = CollectionsViewModelFactory.provideCollectionsViewModelFactory(activity!!)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CollectionsViewModel::class.java)
 
         var isConnected = ConstantsUtils.checkConnectivity(context!!)
 
@@ -47,9 +52,15 @@ class CollectionsFragment : Fragment(), CollectionDelegate {
             noConnection(view)
 
         }
-        binding.collectionBtnRetry.setOnClickListener({
-            recheckInternet()
-        })
+        binding.collectionBtnRetry.setOnClickListener {
+
+            viewModel.checkInternet().observe(activity!!, Observer {progress->
+                when(progress){
+                    true->noConnection(view)
+                    false -> getConnected(view)
+                }
+            })
+        }
         return view
 
     }
@@ -92,14 +103,6 @@ class CollectionsFragment : Fragment(), CollectionDelegate {
         binding.collectionRecyclerview.visibility = View.GONE
         binding.collectionLayoutRetry.visibility = View.VISIBLE
         binding.collectionProgress.visibility = View.GONE
-    }
-
-    fun recheckInternet() {
-        if (ConstantsUtils.checkConnectivity(context!!)) {
-            getConnected(view!!)
-        } else {
-            noConnection(view!!)
-        }
     }
 
 

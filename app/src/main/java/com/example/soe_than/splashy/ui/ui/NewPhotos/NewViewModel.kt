@@ -1,20 +1,24 @@
 package com.example.soe_than.splashy.ui.ui.NewPhotos
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import android.content.Context
 import com.example.soe_than.splashy.ui.data.Vo.Photo
 import com.example.soe_than.splashy.ui.data.datasource.newsource.PhotoDataSource
 import com.example.soe_than.splashy.ui.data.datasource.newsource.PhotoDataSourceFactory
+import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import com.example.soe_than.splashy.ui.utils.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
 
-class NewViewModel:ViewModel() {
+class NewViewModel(val context:Context):ViewModel() {
 
     var photoList: LiveData<PagedList<Photo>>
+    var progress  = MutableLiveData<Boolean>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -23,6 +27,8 @@ class NewViewModel:ViewModel() {
     private val sourceFactory: PhotoDataSourceFactory
 
     init {
+
+
         sourceFactory = PhotoDataSourceFactory(compositeDisposable)
         val config = PagedList.Config.Builder()
                 .setPageSize(pageSize)
@@ -40,6 +46,18 @@ class NewViewModel:ViewModel() {
     fun getListLiveData(): LiveData<PagedList<Photo>> {
         return photoList
     }
+    fun checkInternet():LiveData<Boolean>{
+
+        var status = ConstantsUtils.checkConnectivity(context)
+        if (status == true){
+            progress.postValue(false)
+
+        }else{
+            progress.postValue(true)
+        }
+        return progress
+    }
+
 
     override fun onCleared() {
         super.onCleared()

@@ -36,14 +36,13 @@ object PreferencesUtils {
 //    }
 
 
-    fun putBoolean(context: Context,key: String,value:Boolean):Boolean{
-        Log.i("PrefUtils","$value dfdsfdf")
+    fun putBoolean(context: Context,key: String,value:Boolean){
 
 
         val settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor = settings.edit()
         editor.putBoolean(key, value)
-        return  editor.commit()
+          editor.commit()
     }
 
 

@@ -17,6 +17,8 @@ import com.example.soe_than.splashy.databinding.FeaturedFragmentBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
 import com.example.soe_than.splashy.ui.ui.CollectionPhotos.CollectionsViewModel
+import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModel
+import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModelFactory
 import com.example.soe_than.splashy.ui.ui.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_featured.view.*
@@ -29,7 +31,8 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
         startActivity(intent)
     }
 
-    private val viewModel: FeaturedViewModel by lazy { ViewModelProviders.of(this).get(FeaturedViewModel::class.java) }
+     lateinit var viewModel: FeaturedViewModel
+    lateinit var viewModelFactory:FeaturedViewModelFactory
     lateinit var binding: FeaturedFragmentBinding
     lateinit var newAdapter: PhotoListAdapter
 
@@ -40,6 +43,10 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
 
         val view = binding.getRoot()
 
+        viewModelFactory = FeaturedViewModelFactory.provideFeatureViewModelFactory(activity!!)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(FeaturedViewModel::class.java)
+
         var isConnected = ConstantsUtils.checkConnectivity(context!!)
 
         if (isConnected) {
@@ -48,9 +55,16 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
             noConnection(view)
 
         }
-        binding.featureBtnRetry.setOnClickListener({
-            recheckInternet()
-        })
+
+        binding.featureBtnRetry.setOnClickListener {
+
+            viewModel.checkInternet().observe(activity!!, Observer {progress->
+                when(progress){
+                    true->noConnection(view)
+                    false -> getConnected(view)
+                }
+            })
+        }
 
         return view
     }
@@ -74,13 +88,6 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
 
     }
 
-    fun recheckInternet() {
-        if (ConstantsUtils.checkConnectivity(context!!)) {
-            getConnected(view!!)
-        } else {
-            noConnection(view!!)
-        }
-    }
 
     fun getConnected(view: View) {
 

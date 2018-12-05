@@ -20,12 +20,12 @@ import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 
 class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
     override fun onTap(photoUrl: String) {
-//        var intent = Intent(this, PhotoPreview::class.java)
-//        intent.putExtra("URL", photoUrl)
-//
-//        startActivity(intent)
+        var intent = Intent(this, PhotoPreview::class.java)
+        intent.putExtra("URL", photoUrl)
 
-        restartActivity()
+        startActivity(intent)
+
+//        restartActivity()
     }
 
     var collectionId: String? = null;
@@ -38,7 +38,6 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_collection_photo)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collection_photo)
         Log.i("HIThe",AppCompatDelegate.getDefaultNightMode().toString());
 

@@ -1,6 +1,8 @@
-package com.example.soe_than.splashy.ui.ui
+package com.example.soe_than.splashy.ui.ui.activity
 
-import android.app.Activity
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -22,16 +24,17 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.app_bar_main.*
-import android.os.Build
 import android.util.Log
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatDelegate
 import android.widget.CompoundButton
-import com.example.soe_than.splashy.ui.App
-import android.content.Intent
-import android.databinding.adapters.CompoundButtonBindingAdapter.setChecked
-import android.support.v7.widget.SwitchCompat
 import com.example.soe_than.splashy.ui.data.PreferencesUtils
+import com.example.soe_than.splashy.ui.delegate.CallbackDelegate
+import com.example.soe_than.splashy.ui.ui.PhotoPreview
+import com.example.soe_than.splashy.ui.ui.activity.setting.SettingActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,18 +44,17 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
 
     lateinit var mHandler: Handler
-    var themePref:Boolean = false
+    var themePref: Boolean? = false
 
-
+    private lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var viewModel: MainActivityViewModel
+    private val disposable = CompositeDisposable()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.i("onCreate","${PreferencesUtils.getBoolean(this,"NIGHT_MODE",false)}")
-
-//          themePref = App.getInstance()!!.isNightModeEnabled()
         themePref = PreferencesUtils.getBoolean(this,"NIGHT_MODE",false)
 
         if (themePref == true){
@@ -61,20 +63,34 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         }
+
+        viewModelFactory = MainViewModelFactory.provideMainViewModelFactory(this)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
+
+
+
+
+
+
+
         toolbar = findViewById(R.id.tbar)
         setSupportActionBar(toolbar)
         mHandler = Handler()
         activityTiles = resources.getStringArray(R.array.nav_item_activity_titles)
 
+
+        setUpNavigationView()
         onThemeSwitchChecked()
 
-        setUpNavigationView();
 
         savedInstanceState.let {
             navItemIndex = 0;
             CURRENT_TAG = TAG_NEW
             loadHomeFragment()
         }
+
+
 
     }
 
@@ -157,7 +173,13 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_collection -> {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_COLLECTON
-                    }
+                    }R.id.nav_settings -> {
+                    var intent = Intent(this@MainActivity, SettingActivity::class.java)
+
+                    startActivity(intent)
+
+
+                }
 
                     else -> navItemIndex = 0
 
@@ -210,15 +232,16 @@ class MainActivity : AppCompatActivity() {
         if(themePref == true){
             switchView.isChecked =true
         }else{
-         switchView.isChecked = false
+            switchView.isChecked = false
         }
 
         switchView.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-              changeTheme(isChecked)
+                changeTheme(isChecked)
             }
         })
     }
+
 
     override fun onBackPressed() {
 
@@ -260,11 +283,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun restartActivity(){
+
+    fun restartActivity() {
 
         val mIntent = intent
         finish()
         startActivity(mIntent)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        disposable.clear()
     }
 
 }

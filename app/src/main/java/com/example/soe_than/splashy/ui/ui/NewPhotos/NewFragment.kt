@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.NewFragmentBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
+import com.example.soe_than.splashy.ui.ui.CustomCollection.CustomCollectionViewModel
+import com.example.soe_than.splashy.ui.ui.CustomCollection.CustomCollectionViewModelFactory
 import com.example.soe_than.splashy.ui.ui.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_new.view.*
@@ -33,8 +36,9 @@ class NewFragment : Fragment(), PhotoDelegate {
 
     lateinit var binding: NewFragmentBinding
     lateinit var newAdapter: PhotoListAdapter
+    lateinit var viewModelFactory:NewViewModelFactory
 
-    private val viewModel: NewViewModel by lazy { ViewModelProviders.of(this).get(NewViewModel::class.java) }
+    lateinit var  viewModel: NewViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,6 +49,12 @@ class NewFragment : Fragment(), PhotoDelegate {
         val view = binding.getRoot()
 
 
+        viewModelFactory = NewViewModelFactory.provideNewViewModelFactory(activity!!)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(NewViewModel::class.java)
+
+
+
         var isConnected = ConstantsUtils.checkConnectivity(context!!)
 
         if (isConnected) {
@@ -53,9 +63,15 @@ class NewFragment : Fragment(), PhotoDelegate {
             noConnection(view)
 
         }
-        binding.btnRetry.setOnClickListener({
-            recheckInternet()
-        })
+        binding.btnRetry.setOnClickListener {
+
+            viewModel.checkInternet().observe(activity!!, Observer {progress->
+                when(progress){
+                    true->noConnection(view)
+                    false -> getConnected(view)
+                }
+            })
+        }
 
 
 
@@ -100,16 +116,6 @@ class NewFragment : Fragment(), PhotoDelegate {
 
     }
 
-
-    fun recheckInternet() {
-        if (ConstantsUtils.checkConnectivity(context!!)) {
-            getConnected(view!!)
-        } else {
-            noConnection(view!!)
-        }
-
-
-    }
 
 
 }
