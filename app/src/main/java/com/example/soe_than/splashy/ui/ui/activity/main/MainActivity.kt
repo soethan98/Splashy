@@ -1,6 +1,5 @@
-package com.example.soe_than.splashy.ui.ui.activity
+package com.example.soe_than.splashy.ui.ui.activity.main
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -25,16 +24,9 @@ import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.util.Log
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatDelegate
-import android.widget.CompoundButton
-import com.example.soe_than.splashy.ui.data.PreferencesUtils
-import com.example.soe_than.splashy.ui.delegate.CallbackDelegate
-import com.example.soe_than.splashy.ui.ui.PhotoPreview
+import android.support.v7.preference.PreferenceManager
 import com.example.soe_than.splashy.ui.ui.activity.setting.SettingActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,32 +36,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
 
     lateinit var mHandler: Handler
-    var themePref: Boolean? = false
 
     private lateinit var viewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainActivityViewModel
-    private val disposable = CompositeDisposable()
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        themePref = PreferencesUtils.getBoolean(this,"NIGHT_MODE",false)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this@MainActivity)
 
-        if (themePref == true){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        getThemePref(sharedPreferences.getString("key_theme", ""))
 
-        }
+
+
 
         viewModelFactory = MainViewModelFactory.provideMainViewModelFactory(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
-
-
-
 
 
 
@@ -81,10 +68,10 @@ class MainActivity : AppCompatActivity() {
 
 
         setUpNavigationView()
-        onThemeSwitchChecked()
 
 
         savedInstanceState.let {
+            Log.i("HiViewModel", "save")
             navItemIndex = 0;
             CURRENT_TAG = TAG_NEW
             loadHomeFragment()
@@ -173,13 +160,14 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_collection -> {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_COLLECTON
-                    }R.id.nav_settings -> {
-                    var intent = Intent(this@MainActivity, SettingActivity::class.java)
+                    }
+                    R.id.nav_settings -> {
+                        var intent = Intent(this@MainActivity, SettingActivity::class.java)
 
-                    startActivity(intent)
+                        startActivity(intent)
 
 
-                }
+                    }
 
                     else -> navItemIndex = 0
 
@@ -225,23 +213,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun onThemeSwitchChecked() {
-
-        var switchItem = nav_view.menu.findItem(R.id.nav_dark_theme)
-        val switchView = MenuItemCompat.getActionView(switchItem) as CompoundButton
-        if(themePref == true){
-            switchView.isChecked =true
-        }else{
-            switchView.isChecked = false
-        }
-
-        switchView.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-                changeTheme(isChecked)
-            }
-        })
-    }
-
 
     override fun onBackPressed() {
 
@@ -263,37 +234,18 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun changeTheme(checked:Boolean){
-        when(checked){
-            true -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                App.getInstance()!!.setIsNightModeEnabled(checked)
-                PreferencesUtils.putBoolean(this,"NIGHT_MODE",checked)
 
-            }
-            false -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                App.getInstance()!!.setIsNightModeEnabled(checked)
-                PreferencesUtils.putBoolean(this,"NIGHT_MODE",checked)
 
-            }
 
+
+    fun getThemePref(theme: String) {
+        when (theme) {
+            "0" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-        restartActivity()
-
-    }
 
 
-    fun restartActivity() {
-
-        val mIntent = intent
-        finish()
-        startActivity(mIntent)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        disposable.clear()
     }
 
 }

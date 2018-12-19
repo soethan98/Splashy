@@ -4,5 +4,5 @@ import android.widget.CompoundButton
 
 interface CallbackDelegate {
 
-    fun getThemePref(checked: Boolean, switchView: CompoundButton)
+    fun getThemePref(themeNumber: String)
 }

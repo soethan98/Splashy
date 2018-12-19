@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="0"
+        android:dialogTitle="@string/theme"
+        android:entries="@array/pref_theme_entries"
+        android:entryValues="@array/pref_theme_values"
+        android:key="@string/key_theme"
+        android:summary="@string/summary_theme"
+        android:title="@string/theme" />
+    <PreferenceCategory android:title="Quality">
 
-    <android.support.v7.preference.SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="example_switch"
-        android:summary="Turn this option on or off"
-        android:title="Settings Options" />
+
+        <ListPreference
+            android:defaultValue="2"
+            android:dialogTitle="@string/load_quality"
+            android:entries="@array/pref_load_quality_entries"
+            android:entryValues="@array/pref_load_quality_values"
+            android:key="@string/key_load_quality"
+            android:summary="@string/summary_load_quality"
+            android:title="@string/load_quality" />
+        <ListPreference
+            android:defaultValue="2"
+            android:dialogTitle="@string/download_quality"
+            android:entries="@array/pref_down_quality_entries"
+            android:entryValues="@array/pref_down_quality_values"
+            android:key="@string/key_download_quality"
+            android:summary="@string/summary_download_quality"
+            android:title="@string/download_quality" />
+        <ListPreference
+        android:defaultValue="2"
+        android:dialogTitle="@string/wallpaper_quality"
+        android:entries="@array/pref_wallpaper_quality_entries"
+        android:entryValues="@array/pref_wallpaper_quality_values"
+        android:key="@string/key_download_quality"
+        android:summary="@string/summary_wallpaper_quality"
+        android:title="@string/wallpaper_quality" />
+    </PreferenceCategory>
 </PreferenceScreen>

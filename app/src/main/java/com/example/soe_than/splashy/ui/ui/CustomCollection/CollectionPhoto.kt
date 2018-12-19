@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
+import android.support.v7.preference.PreferenceManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.MenuItem
@@ -34,6 +35,7 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
     private lateinit var viewModel: CustomCollectionViewModel
     private lateinit var viewModelFactory: CustomCollectionViewModelFactory
     lateinit var newAdapter: PhotoListAdapter
+    var loadQual:String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,9 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CustomCollectionViewModel::class.java)
 
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        loadQual = sharedPreferences.getString(getString(R.string.key_load_quality),"")
+
         var isConnected = ConstantsUtils.checkConnectivity(this)
 
         if (isConnected) {
@@ -72,7 +77,7 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
     private fun setUpRecyclerView() {
         binding.cRecyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        newAdapter = PhotoListAdapter(this,this)
+        newAdapter = PhotoListAdapter(this, this, loadQual)
 
         viewModel.getListLiveData().observe(this, Observer { photos ->
             photos!!.let {

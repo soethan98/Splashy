@@ -7,6 +7,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.preference.PreferenceManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,6 @@ import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.FeaturedFragmentBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
-import com.example.soe_than.splashy.ui.ui.CollectionPhotos.CollectionsViewModel
-import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModel
-import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModelFactory
 import com.example.soe_than.splashy.ui.ui.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_featured.view.*
@@ -35,6 +33,7 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
     lateinit var viewModelFactory:FeaturedViewModelFactory
     lateinit var binding: FeaturedFragmentBinding
     lateinit var newAdapter: PhotoListAdapter
+    var loadQual:String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,6 +45,9 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
         viewModelFactory = FeaturedViewModelFactory.provideFeatureViewModelFactory(activity!!)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FeaturedViewModel::class.java)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        loadQual = sharedPreferences.getString(getString(R.string.key_load_quality),"")
 
         var isConnected = ConstantsUtils.checkConnectivity(context!!)
 
@@ -72,7 +74,7 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
     private fun setUpRecyclerView(view: View) {
         binding.featuredRecyclerview.layoutManager = StaggeredGridLayoutManager(2, 1)
 
-        newAdapter = PhotoListAdapter(activity!!,this)
+        newAdapter = PhotoListAdapter(activity!!, this, loadQual)
 
         viewModel.getListLiveData().observe(activity!!, Observer { photos ->
             photos!!.let {

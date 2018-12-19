@@ -1,9 +1,8 @@
-package com.example.soe_than.splashy.ui.ui.activity
+package com.example.soe_than.splashy.ui.ui.activity.main
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
-import com.example.soe_than.splashy.ui.ui.NewPhotos.NewViewModelFactory
 
 class MainViewModelFactory(var context: Context):ViewModelProvider.NewInstanceFactory() {
 

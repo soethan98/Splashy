@@ -18,8 +18,7 @@ import com.github.chrisbanes.photoview.PhotoViewAttacher
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.target.Target
 import android.support.v4.content.ContextCompat
-
-
+import com.example.soe_than.splashy.ui.ui.PhotoDetail.DetailFragment
 
 
 class PhotoPreview : AppCompatActivity() {
@@ -39,7 +38,6 @@ class PhotoPreview : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true);
 
 
-
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true);
 //        supportActionBar!!.setBackgroundDrawable()
 
@@ -51,7 +49,6 @@ class PhotoPreview : AppCompatActivity() {
 //                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 //                        or View.SYSTEM_UI_FLAG_FULLSCREEN
 //                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-
 
 
         photoViewAttacher = PhotoViewAttacher(binding.previewImage)
@@ -75,6 +72,27 @@ class PhotoPreview : AppCompatActivity() {
                 )
                 .thumbnail(0.1f)
                 .into(binding.previewImage)
+
+
+        binding.btnInfo.setOnClickListener {
+addFragment()
+        }
+    }
+
+    private fun addFragment() {
+
+        val bottomSheetFragment = DetailFragment()
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.getTag())
+
+
+//        val fragmentManager = supportFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//
+//        val fragment = DetailFragment()
+//        fragmentTransaction.add(R.id.activity_preview, fragment)
+//        fragmentTransaction.commit()
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

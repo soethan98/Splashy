@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Context
+import android.support.v7.preference.PreferenceManager
 import com.example.soe_than.splashy.ui.data.Vo.Photo
 import com.example.soe_than.splashy.ui.data.datasource.newsource.PhotoDataSource
 import com.example.soe_than.splashy.ui.data.datasource.newsource.PhotoDataSourceFactory
@@ -25,6 +26,8 @@ class NewViewModel(val context:Context):ViewModel() {
     private val pageSize = 20
 
     private val sourceFactory: PhotoDataSourceFactory
+
+    var themePref = MutableLiveData<String>()
 
     init {
 
@@ -57,6 +60,19 @@ class NewViewModel(val context:Context):ViewModel() {
         }
         return progress
     }
+
+//    fun getThemeFromPref(): LiveData<String> {
+//
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context /* Activity context */)
+////        val name = sharedPreferences.getString("signature", "")
+////        themePref.postValue(PreferencesUtils.getBoolean(context, "NIGHT_MODE", false))
+//
+//        themePref.postValue(sharedPreferences.getString("key_theme", ""))
+//        return themePref
+//
+//
+//    }
+
 
 
     override fun onCleared() {

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.ui.activity.MainActivity"
+            android:name=".ui.ui.activity.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +29,10 @@
             android:name=".ui.ui.PhotoPreview"
             android:theme="@style/AppPreviewTheme" />
         <activity android:name=".ui.ui.activity.setting.SettingActivity"
-            android:parentActivityName=".ui.ui.activity.MainActivity">
+            android:parentActivityName=".ui.ui.activity.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ui.activity.MainActivity"/>
+                android:value=".ui.ui.activity.main.MainActivity"/>
         </activity>
     </application>
 

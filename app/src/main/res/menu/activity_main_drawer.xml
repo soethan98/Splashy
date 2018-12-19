@@ -24,14 +24,14 @@
     <item android:title="Others">
         <menu>
             <item
-                app:actionViewClass="android.widget.Switch"
-                android:id="@+id/nav_dark_theme"
-                android:title="@string/dark_theme"
-                android:checkable="true" />
-            <item
                 android:icon="@drawable/ic_settings"
                 android:id="@+id/nav_settings"
                 android:title="@string/nav_settings" />
+            <item
+               android:id="@+id/about_me"
+                android:title="@string/nav_about_us"
+                android:icon="@drawable/ic_settings"/>
+
         </menu>
     </item>
 

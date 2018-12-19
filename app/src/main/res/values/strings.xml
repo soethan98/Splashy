@@ -32,6 +32,21 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    //Setting
+    <string name="load_quality">Load Quality</string>
+    <string name="download_quality">Download Quality</string>
+    <string name="wallpaper_quality">Wallpaper Quality</string>
+    <string name="theme">Theme</string>
+    <string name="key_load_quality">key_load_quality</string>
+    <string name="key_download_quality">key_download_quality</string>
+    <string name="key_wallpaper_quality">key_wallpaper_quality</string>
+    <string name="key_theme">key_theme</string>
+    <string name="summary_load_quality">Choose the quality of the images that are loaded</string>
+    <string name="summary_download_quality">Choose the quality of the images that are downloaded</string>
+    <string name="summary_wallpaper_quality">Choose the quality of the wallpaper set</string>
+    <string name="summary_theme"></string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
