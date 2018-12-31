@@ -1,7 +1,10 @@
 package com.example.soe_than.splashy.ui.data.Vo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Photo(
         @SerializedName("id")
         val id: String,
@@ -20,4 +23,4 @@ data class Photo(
         @SerializedName("links")
         val links: Links,
         @SerializedName("urls")
-        val urls: Urls)
+        val urls: Urls):Parcelable

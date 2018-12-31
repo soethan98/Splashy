@@ -9,28 +9,24 @@
         android:id="@+id/activity_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.ui.PhotoPreview">
+        tools:context=".ui.ui.activity.photopreview.PhotoPreview">
+
 
         <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/preview_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
+            android:layout_height="match_parent" />
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_gravity="start"
+            android:layout_margin="@dimen/eight"
+            android:id="@+id/btn_exit_preview"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            app:elevation="0dp">
+            android:tint="@color/primaryColorText"
+            android:src="@drawable/ic_backarrow"/>
 
-            <android.support.v7.widget.Toolbar
-                app:theme="@style/ToolbarColoredBackArrow"
-                app:titleTextColor="@color/primaryColorText"
 
-                android:id="@+id/preview_bar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-        </android.support.design.widget.AppBarLayout>
 
         <ProgressBar
             android:id="@+id/preview_progress"

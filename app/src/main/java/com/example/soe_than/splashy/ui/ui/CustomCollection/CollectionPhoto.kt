@@ -15,19 +15,20 @@ import android.view.View
 import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.ActivityCollectionBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
+import com.example.soe_than.splashy.ui.data.Vo.Photo
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
-import com.example.soe_than.splashy.ui.ui.PhotoPreview
+import com.example.soe_than.splashy.ui.ui.activity.photopreview.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
+import org.jetbrains.anko.startActivity
 
-class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
-    override fun onTap(photoUrl: String) {
-        var intent = Intent(this, PhotoPreview::class.java)
-        intent.putExtra("URL", photoUrl)
-
-        startActivity(intent)
-
-//        restartActivity()
+class CollectionPhoto : AppCompatActivity(), PhotoDelegate {
+    override fun onTap(photoUrl: String?, photoId: String?) {
+       startActivity<PhotoPreview>(
+               "PHOTO_URL" to photoUrl,
+               "PHOTO_ID" to photoId
+       )
     }
+
 
     var collectionId: String? = null;
     var collectionTitle: String? = null
@@ -35,13 +36,13 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
     private lateinit var viewModel: CustomCollectionViewModel
     private lateinit var viewModelFactory: CustomCollectionViewModelFactory
     lateinit var newAdapter: PhotoListAdapter
-    var loadQual:String? = null
+    var loadQual: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collection_photo)
-        Log.i("HIThe",AppCompatDelegate.getDefaultNightMode().toString());
+        Log.i("HIThe", AppCompatDelegate.getDefaultNightMode().toString());
 
 
         setSupportActionBar(binding.toolbar)
@@ -57,7 +58,7 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CustomCollectionViewModel::class.java)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        loadQual = sharedPreferences.getString(getString(R.string.key_load_quality),"")
+        loadQual = sharedPreferences.getString(getString(R.string.key_load_quality), "")
 
         var isConnected = ConstantsUtils.checkConnectivity(this)
 
@@ -123,7 +124,7 @@ class CollectionPhoto : AppCompatActivity(),PhotoDelegate {
         return super.onOptionsItemSelected(item)
     }
 
-    fun restartActivity(){
+    fun restartActivity() {
 
         val mIntent = intent
         finish()

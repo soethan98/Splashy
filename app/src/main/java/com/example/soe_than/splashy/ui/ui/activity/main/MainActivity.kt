@@ -2,6 +2,7 @@ package com.example.soe_than.splashy.ui.ui.activity.main
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainActivityViewModel
+    lateinit var  sharedPreferences: SharedPreferences
 
 
 
@@ -47,7 +49,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this@MainActivity)
+
+         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this@MainActivity)
 
         getThemePref(sharedPreferences.getString("key_theme", ""))
 
@@ -71,7 +74,6 @@ class MainActivity : AppCompatActivity() {
 
 
         savedInstanceState.let {
-            Log.i("HiViewModel", "save")
             navItemIndex = 0;
             CURRENT_TAG = TAG_NEW
             loadHomeFragment()
@@ -247,6 +249,26 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("Hi","onResume")
+//        getThemePref(sharedPreferences.getString("key_theme", ""))
+
+    }
+
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("Hi","onRestart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("Hi","onPause")
+
+    }
+
 
 }
 

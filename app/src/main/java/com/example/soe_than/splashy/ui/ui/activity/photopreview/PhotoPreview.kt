@@ -1,4 +1,4 @@
-package com.example.soe_than.splashy.ui.ui
+package com.example.soe_than.splashy.ui.ui.activity.photopreview
 
 import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
@@ -18,43 +18,51 @@ import com.github.chrisbanes.photoview.PhotoViewAttacher
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.target.Target
 import android.support.v4.content.ContextCompat
+import android.support.v7.preference.PreferenceManager
+import android.widget.Toast
+import com.example.soe_than.splashy.ui.data.Vo.Photo
+import com.example.soe_than.splashy.ui.data.Vo.Urls
 import com.example.soe_than.splashy.ui.ui.PhotoDetail.DetailFragment
+import com.example.soe_than.splashy.ui.ui.activity.main.MainActivity
 
 
 class PhotoPreview : AppCompatActivity() {
 
-    var photoUrl: String? = null
     lateinit var binding: ActivityPreviewBinding
 
+//     var photo: Photo? = null
+
     lateinit var photoViewAttacher: PhotoViewAttacher
+    var loadQual: String? = null
+    var photoId:String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_preview)
 
-        photoUrl = intent.getStringExtra("URL")
-        setSupportActionBar(binding.previewBar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true);
+        val photoUrl = intent.getStringExtra("PHOTO_URL")
+         photoId = intent.getStringExtra("PHOTO_ID")
+
+        loadPhoto(photoUrl)
+        binding.btnInfo.setOnClickListener {
+            addFragment()
+        }
+
+        binding.btnExitPreview.setOnClickListener {
+            this@PhotoPreview.finish()
+
+        }
 
 
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true);
-//        supportActionBar!!.setBackgroundDrawable()
+    }
 
-
-//        window.decorView.systemUiVisibility = (
-//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                        or View.SYSTEM_UI_FLAG_FULLSCREEN
-//                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-
-
+    fun loadPhoto(urls: String){
         photoViewAttacher = PhotoViewAttacher(binding.previewImage)
 
         Glide.with(this)
-                .load(photoUrl)
+                .load(urls)
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         binding.previewProgress.visibility = View.GONE
@@ -72,33 +80,17 @@ class PhotoPreview : AppCompatActivity() {
                 )
                 .thumbnail(0.1f)
                 .into(binding.previewImage)
-
-
-        binding.btnInfo.setOnClickListener {
-addFragment()
-        }
     }
 
     private fun addFragment() {
 
         val bottomSheetFragment = DetailFragment()
-        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.getTag())
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
 
-
-//        val fragmentManager = supportFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//
-//        val fragment = DetailFragment()
-//        fragmentTransaction.add(R.id.activity_preview, fragment)
-//        fragmentTransaction.commit()
-
-
+        val bundle = Bundle()
+        bundle.putString("photo_id", photoId)
+        bottomSheetFragment.setArguments(bundle)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item!!.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 }

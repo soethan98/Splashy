@@ -16,15 +16,15 @@
             android:clickable="true"
             android:orientation="vertical"
             android:paddingLeft="20sp"
-            android:paddingRight="20sp"
-            >
+            android:paddingRight="20sp">
 
             <ImageView
                 android:id="@+id/feature_NoSignal"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/wifi_128" />
+                android:src="@drawable/wifi_128"
+                android:tint="@color/primaryColorText"/>
 
             <TextView
                 android:id="@+id/feature_internetStatus"
@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:text="RETRY"
                 android:id="@+id/feature_btn_retry"
-                android:textColor="@color/colorPrimary"
                 android:background="@drawable/retrybtn_background"/>
 
         </LinearLayout>

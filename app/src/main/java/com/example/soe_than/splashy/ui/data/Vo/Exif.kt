@@ -1,7 +1,10 @@
 package com.example.soe_than.splashy.ui.data.Vo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Exif(
         @SerializedName("make")
         var make: String? = null,
@@ -14,5 +17,5 @@ data class Exif(
         @SerializedName("focal_lenght")
         var focal_length: String? = null,
         @SerializedName("iso")
-        var iso: Int = 0)
+        var iso: Int = 0):Parcelable
 

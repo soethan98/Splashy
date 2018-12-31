@@ -2,6 +2,7 @@ package com.example.soe_than.splashy.ui.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.example.soe_than.splashy.ui.data.Vo.Photo
 
 object ConstantsUtils{
     var navItemIndex = 0

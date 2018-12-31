@@ -1,8 +1,11 @@
 package com.example.soe_than.splashy.ui.data.Vo
 
 import android.location.Location
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 class User(
         @SerializedName("id")
         val id: String,
@@ -21,7 +24,7 @@ class User(
         @SerializedName("total_photos")
         val totalPhotos: Int,
         @SerializedName("location")
-        val location: String)
+        val location: String):Parcelable
 
 
 

@@ -11,17 +11,22 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="android:textColorPrimary">@color/primaryColorText</item>
         <item name="android:textColorSecondary">@color/secondaryColorText</item>
+        <item name="android:titleTextColor">@color/primaryColorText</item>
+
     </style>
 
-    <style name="AppPreviewTheme" parent="Base.Theme.AppCompat.Light">
-        <!--<item name="colorPrimary">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="actionBarItemBackground">@color/colorPrimaryDark</item>-->
+    <style name="AppPreviewTheme" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowActionBarOverlay">true</item>
-
     </style>
+
+    <style name="SettingTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimarySetting</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkSetting</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
 
 </resources>

@@ -26,13 +26,15 @@
             android:name=".ui.ui.CustomCollection.CollectionPhoto"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.ui.PhotoPreview"
+            android:name=".ui.ui.activity.photopreview.PhotoPreview"
             android:theme="@style/AppPreviewTheme" />
         <activity android:name=".ui.ui.activity.setting.SettingActivity"
+            android:theme="@style/SettingTheme"
             android:parentActivityName=".ui.ui.activity.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ui.activity.main.MainActivity"/>
+
         </activity>
     </application>
 

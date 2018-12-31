@@ -10,4 +10,11 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">@android:color/transparent</color>
     <color name="colorAccent">#ff3d00</color>
+    <color name="colorImageTint">@android:color/black</color>
+    <color name="colorImageTintDetail">@android:color/white</color>
+
+
+    <color name="colorPrimarySetting">#212121</color>
+    <color name="colorPrimaryDarkSetting">@android:color/black</color>
+
 </resources>

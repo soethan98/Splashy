@@ -16,24 +16,25 @@ import android.view.ViewGroup
 import com.example.soe_than.splashy.R
 import com.example.soe_than.splashy.databinding.FeaturedFragmentBinding
 import com.example.soe_than.splashy.ui.adapter.PhotoListAdapter
+import com.example.soe_than.splashy.ui.data.Vo.Photo
 import com.example.soe_than.splashy.ui.delegate.PhotoDelegate
-import com.example.soe_than.splashy.ui.ui.PhotoPreview
+import com.example.soe_than.splashy.ui.ui.activity.photopreview.PhotoPreview
 import com.example.soe_than.splashy.ui.utils.ConstantsUtils
 import kotlinx.android.synthetic.main.fragment_featured.view.*
+import org.jetbrains.anko.support.v4.startActivity
 
-class FeaturedFragment : Fragment(),PhotoDelegate {
-    override fun onTap(photoUrl: String) {
-        var intent = Intent(activity, PhotoPreview::class.java)
-        intent.putExtra("URL", photoUrl)
+class FeaturedFragment : Fragment(), PhotoDelegate {
+    override fun onTap(photoUrl: String?, photoId: String?) {
+        startActivity<PhotoPreview>("PHOTO_URL" to photoUrl,
+                "PHOTO_ID" to photoId)
 
-        startActivity(intent)
     }
 
-     lateinit var viewModel: FeaturedViewModel
-    lateinit var viewModelFactory:FeaturedViewModelFactory
+    lateinit var viewModel: FeaturedViewModel
+    lateinit var viewModelFactory: FeaturedViewModelFactory
     lateinit var binding: FeaturedFragmentBinding
     lateinit var newAdapter: PhotoListAdapter
-    var loadQual:String? = null
+    var loadQual: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,7 +48,7 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FeaturedViewModel::class.java)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        loadQual = sharedPreferences.getString(getString(R.string.key_load_quality),"")
+        loadQual = sharedPreferences.getString(getString(R.string.key_load_quality), "")
 
         var isConnected = ConstantsUtils.checkConnectivity(context!!)
 
@@ -60,9 +61,9 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
 
         binding.featureBtnRetry.setOnClickListener {
 
-            viewModel.checkInternet().observe(activity!!, Observer {progress->
-                when(progress){
-                    true->noConnection(view)
+            viewModel.checkInternet().observe(activity!!, Observer { progress ->
+                when (progress) {
+                    true -> noConnection(view)
                     false -> getConnected(view)
                 }
             })
@@ -110,7 +111,6 @@ class FeaturedFragment : Fragment(),PhotoDelegate {
         binding.featuredProgress.visibility = View.GONE
 
     }
-
 
 
 }

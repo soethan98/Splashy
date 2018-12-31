@@ -9,7 +9,6 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/collection_layoutRetry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,33 +17,32 @@
             android:orientation="vertical"
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
-            >
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/collection_noSignal"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/wifi_128" />
+                android:src="@drawable/wifi_128"
+                android:tint="@color/primaryColorText" />
 
             <TextView
                 android:id="@+id/collection_internetStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="No internet connections found"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                android:layout_gravity="center_horizontal"/>
-
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
 
             <Button
-                android:layout_marginTop="20sp"
+                android:id="@+id/collection_btn_retry"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:text="RETRY"
-                android:id="@+id/collection_btn_retry"
-                android:textColor="@color/colorPrimary"
-                android:background="@drawable/retrybtn_background"/>
+                android:layout_marginTop="20sp"
+                android:background="@drawable/retrybtn_background"
+                android:text="RETRY" />
 
         </LinearLayout>
 
@@ -52,7 +50,7 @@
             android:id="@+id/collectionProgress"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/collectionRecyclerview"

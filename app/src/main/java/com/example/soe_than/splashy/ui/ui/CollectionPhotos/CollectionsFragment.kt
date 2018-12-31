@@ -27,9 +27,8 @@ import kotlinx.android.synthetic.main.fragment_collections.view.*
 class CollectionsFragment : Fragment(), CollectionDelegate {
 
 
-
-     lateinit var viewModel: CollectionsViewModel
-    lateinit var viewModelFactory:CollectionsViewModelFactory
+    lateinit var viewModel: CollectionsViewModel
+    lateinit var viewModelFactory: CollectionsViewModelFactory
     lateinit var binding: CollectionFragmentBinding
     lateinit var collectionListAdapter: CollectionListAdapter
 
@@ -54,9 +53,9 @@ class CollectionsFragment : Fragment(), CollectionDelegate {
         }
         binding.collectionBtnRetry.setOnClickListener {
 
-            viewModel.checkInternet().observe(activity!!, Observer {progress->
-                when(progress){
-                    true->noConnection(view)
+            viewModel.checkInternet().observe(activity!!, Observer { progress ->
+                when (progress) {
+                    true -> noConnection(view)
                     false -> getConnected(view)
                 }
             })
@@ -87,7 +86,7 @@ class CollectionsFragment : Fragment(), CollectionDelegate {
     override fun onTap(collection: Collection) {
         var intent = Intent(activity, CollectionPhoto::class.java)
         intent.putExtra("ID", collection.id)
-        intent.putExtra("TITLE",collection.title)
+        intent.putExtra("TITLE", collection.title)
 
         startActivity(intent)
     }

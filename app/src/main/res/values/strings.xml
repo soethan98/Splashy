@@ -45,6 +45,8 @@
     <string name="summary_download_quality">Choose the quality of the images that are downloaded</string>
     <string name="summary_wallpaper_quality">Choose the quality of the wallpaper set</string>
     <string name="summary_theme"></string>
+    <string name="image_download">Download</string>
+    <string name="image_set_wallpaper">Set Wallpaper</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
